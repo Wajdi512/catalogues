@@ -9,7 +9,11 @@ import metier.Catalogue;
 
 public class CatalogueTableModel extends AbstractTableModel {
 
-	List<Catalogue> lesCatalogues = new ArrayList();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	List<Catalogue> lesCatalogues = new ArrayList<>();
 	String titre[] = { "Code", "Nom" };
 
 	@Override
@@ -32,10 +36,10 @@ public class CatalogueTableModel extends AbstractTableModel {
 		}
 		return null;
 	}
-	
-    public String getColumnName(int column) {
-        return titre[column];
-    }
+
+	public String getColumnName(int column) {
+		return titre[column];
+	}
 
 	public void chargerTable(List<Catalogue> catalogues) {
 		this.lesCatalogues = catalogues;

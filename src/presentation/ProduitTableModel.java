@@ -8,7 +8,11 @@ import javax.swing.table.AbstractTableModel;
 import metier.Produit;
 
 public class ProduitTableModel extends AbstractTableModel {
-	List<Produit> lesProduits = new ArrayList();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	List<Produit> lesProduits = new ArrayList<>();
 	String titre[] = { "Reference", "Nom", "Prix", "Quantité", "Catalogue" };
 
 	@Override
@@ -33,15 +37,15 @@ public class ProduitTableModel extends AbstractTableModel {
 		case 3:
 			return lesProduits.get(rowIndex).getQuantite();
 		case 4:
-			return lesProduits.get(rowIndex).getCatalogue().getNom();
+			return lesProduits.get(rowIndex).getCatalogue() != null ? lesProduits.get(rowIndex).getCatalogue().getNom() : "";
 		}
 		return null;
 	}
 
 	@Override
-    public String getColumnName(int column) {
-        return titre[column];
-    }
+	public String getColumnName(int column) {
+		return titre[column];
+	}
 
 	public void chargerTable(List<Produit> lesProduits) {
 		this.lesProduits = lesProduits;

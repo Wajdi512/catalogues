@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import constants.Constants;
 import dao.CatalogueDao;
 import dao.IDAOCatalogue;
 import dao.IDAOProduit;
@@ -45,29 +46,29 @@ public class AddProduit extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Ajout produit");
+		JLabel lblNewLabel = new JLabel(Constants.PRODUIT_AJOUT_LABLEL);
 		lblNewLabel.setForeground(Color.BLUE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(219, 23, 125, 61);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Reference:");
+		JLabel lblNewLabel_1 = new JLabel(Constants.PRODUIT_REFERENCE_LABLEL);
 		lblNewLabel_1.setBounds(22, 109, 63, 25);
 		contentPane.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_1_1 = new JLabel("Nom:");
+		JLabel lblNewLabel_1_1 = new JLabel(Constants.PRODUIT_NOM_LABLEL);
 		lblNewLabel_1_1.setBounds(22, 158, 63, 25);
 		contentPane.add(lblNewLabel_1_1);
 
-		JLabel lblNewLabel_1_1_1 = new JLabel("Prix:");
+		JLabel lblNewLabel_1_1_1 = new JLabel(Constants.PRODUIT_PRIX_LABLEL);
 		lblNewLabel_1_1_1.setBounds(22, 213, 63, 25);
 		contentPane.add(lblNewLabel_1_1_1);
 
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Quantit\u00E9:");
+		JLabel lblNewLabel_1_1_1_1 = new JLabel(Constants.PRODUIT_QUANTITE_LABLEL);
 		lblNewLabel_1_1_1_1.setBounds(22, 281, 63, 25);
 		contentPane.add(lblNewLabel_1_1_1_1);
 
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Catalogue:");
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel(Constants.PRODUIT_CATATLOGUE_LABLEL);
 		lblNewLabel_1_1_1_1_1.setBounds(22, 344, 63, 25);
 		contentPane.add(lblNewLabel_1_1_1_1_1);
 
@@ -96,7 +97,7 @@ public class AddProduit extends JFrame {
 
 		contentPane.add(catalogueSelect);
 		loadCatalogueOnComboBox(catalogueSelect);
-		JButton btnNewButton = new JButton("Enregistrer");
+		JButton btnNewButton = new JButton(Constants.ENREGISTRER);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Integer codeCatalogue = Integer.valueOf(((ComboItem) catalogueSelect.getSelectedItem()).getKey());
@@ -125,11 +126,11 @@ public class AddProduit extends JFrame {
 		try {
 			newProduit.setCatalogue(catalogueDao.findById(codeCatalogue));
 			produitDao.add(newProduit);
-			JDialog dialog = new InfoDialog("Produit ajouté", "Done");
+			JDialog dialog = new InfoDialog(Constants.PRODUIT_AJOUTE, Constants.PRODUIT_AJOUTE_INF);
 			dialog.setVisible(true);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			JDialog dialog = new InfoDialog("Alerte", e1.getMessage());
+			JDialog dialog = new InfoDialog(Constants.ERROR, e1.getMessage());
 			dialog.setVisible(true);
 
 		}

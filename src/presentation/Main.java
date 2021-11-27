@@ -113,7 +113,7 @@ public class Main {
 		});
 		mnNewMenu.add(mntmNewMenuItem);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Edition produits");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Ajout produit");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddProduit addPrduit = new AddProduit();

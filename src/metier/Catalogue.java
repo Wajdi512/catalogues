@@ -12,7 +12,6 @@ public class Catalogue {
 
 	public Catalogue() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Catalogue(Integer code, String nom, List<Produit> produits) {

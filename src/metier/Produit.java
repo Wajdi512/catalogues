@@ -14,7 +14,6 @@ public class Produit {
 
 	public Produit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Produit(Integer reference, String nom, Double prix, Integer quantite, Catalogue catalogue) {

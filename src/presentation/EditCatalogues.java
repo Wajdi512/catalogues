@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import constants.Constants;
 import dao.CatalogueDao;
 import metier.Catalogue;
 
@@ -37,7 +38,7 @@ public class EditCatalogues extends JFrame {
 	 * Launch the application.
 	 */
 	public EditCatalogues() {
-		setTitle("G\u00E9rer les cat\u00E9gories");
+		setTitle(Constants.GERER_LES_CATALOGUES);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 768, 524);
@@ -46,13 +47,13 @@ public class EditCatalogues extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("G\u00E9rer les cat\u00E9gories:");
+		JLabel lblNewLabel_1 = new JLabel(Constants.GERER_LES_CATALOGUES);
 		lblNewLabel_1.setForeground(Color.BLUE);
 		lblNewLabel_1.setBounds(10, 0, 233, 68);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblNewLabel_1);
 
-		JLabel lblNom = new JLabel("Nom:");
+		JLabel lblNom = new JLabel(Constants.NOM_LABEL);
 		lblNom.setBounds(32, 73, 104, 32);
 		contentPane.add(lblNom);
 
@@ -61,7 +62,7 @@ public class EditCatalogues extends JFrame {
 		nomTxt.setColumns(10);
 		contentPane.add(nomTxt);
 
-		JButton btnNewButton = new JButton("Enregistrer");
+		JButton btnNewButton = new JButton(Constants.ENREGISTRER);
 		btnNewButton.setBounds(379, 78, 143, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -69,7 +70,7 @@ public class EditCatalogues extends JFrame {
 					addCatalogue();
 				} catch (Exception e1) {
 					e1.printStackTrace();
-					JDialog dialog = new InfoDialog("Exception", e1.getMessage());
+					JDialog dialog = new InfoDialog(Constants.ERROR, e1.getMessage());
 					dialog.setVisible(true);
 
 				}
@@ -93,15 +94,16 @@ public class EditCatalogues extends JFrame {
 		cataloguesJTable.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_DELETE && selectedCatalogue != null) {
+				if (e.getKeyCode() == KeyEvent.VK_DELETE && selectedCatalogue != null) {
 					try {
 						dao.delete(selectedCatalogue.getCode());
-						JDialog dialog = new InfoDialog("Catalogue supprimé", String.format("le catalogue %s a été supprimé !", selectedCatalogue.getNom()));
+						JDialog dialog = new InfoDialog(Constants.CATALOGUE_SUPPRIME,
+								String.format(Constants.CATALOGUE_SUPPRIME_INFO, selectedCatalogue.getNom()));
 						dialog.setVisible(true);
 						updateTable();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						JDialog dialog = new InfoDialog("Exception", e1.getMessage());
+						JDialog dialog = new InfoDialog(Constants.ERROR, e1.getMessage());
 						dialog.setVisible(true);
 						e1.printStackTrace();
 					}
@@ -133,11 +135,13 @@ public class EditCatalogues extends JFrame {
 	}
 
 	private void addCatalogue() throws SQLException {
-		if(this.selectedCatalogue != null) {
+		if (this.selectedCatalogue != null) {
 			selectedCatalogue.setNom(nomTxt.getText());
+			Integer code = selectedCatalogue.getCode();
 			dao.update(selectedCatalogue);
 			selectedCatalogue = null;
-			JDialog dialog = new InfoDialog("Catalogue modifié", "Done");
+			JDialog dialog = new InfoDialog(Constants.CATALOGUE_MODIFIE,
+					String.format(Constants.CATALOGUE_MODIFIE_INF, code));
 			dialog.setVisible(true);
 			nomTxt.setText("");
 			updateTable();
@@ -145,7 +149,7 @@ public class EditCatalogues extends JFrame {
 		}
 		Catalogue catalogue = new Catalogue(null, nomTxt.getText(), null);
 		dao.add(catalogue);
-		JDialog dialog = new InfoDialog("Catalogue ajouté", "Done");
+		JDialog dialog = new InfoDialog(Constants.CATALOGUE_AJOUTE, Constants.CATALOGUE_AJOUTE_INF);
 		dialog.setVisible(true);
 		nomTxt.setText("");
 		updateTable();
