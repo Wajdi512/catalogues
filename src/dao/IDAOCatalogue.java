@@ -1,7 +1,27 @@
 package dao;
 
-import metier.Catalogue;
+import java.sql.SQLException;
+import java.util.List;
 
-public interface IDAOCatalogue extends AbstractDao<Catalogue, Integer>{
+import metier.Categorie;
+import metier.Produit;
+
+public interface IDAOCatalogue {
+
+	List<Produit> findProduitsByCategorie(Integer codeCatalogue) throws SQLException;
+
+	List<Categorie> findAllCategories() throws SQLException;
+	
+	List<Produit> findAllProduits() throws SQLException;
+
+	void ajouterCategorie(Categorie cat) throws SQLException;
+	
+	void ajouterProduit(Produit produit) throws SQLException;
+	
+	Categorie updateCategorie(Categorie categorie) throws SQLException;
+
+	
+	void deleteCategorieById(Integer categorie_id) throws SQLException;
+
 	
 }

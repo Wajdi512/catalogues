@@ -10,13 +10,13 @@ public class Produit {
 
 	private Integer quantite;
 
-	private Catalogue catalogue;
+	private Categorie catalogue;
 
 	public Produit() {
 		super();
 	}
 
-	public Produit(Integer reference, String nom, Double prix, Integer quantite, Catalogue catalogue) {
+	public Produit(Integer reference, String nom, Double prix, Integer quantite, Categorie catalogue) {
 		super();
 		this.reference = reference;
 		this.nom = nom;
@@ -57,11 +57,11 @@ public class Produit {
 		this.quantite = quantite;
 	}
 
-	public Catalogue getCatalogue() {
+	public Categorie getCatalogue() {
 		return catalogue;
 	}
 
-	public void setCatalogue(Catalogue catalogue) {
+	public void setCatalogue(Categorie catalogue) {
 		this.catalogue = catalogue;
 	}
 

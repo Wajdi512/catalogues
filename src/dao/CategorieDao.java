@@ -7,19 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import metier.Catalogue;
+import metier.Categorie;
 import util.SingletonConnection;
 
-public class CatalogueDao implements IDAOCatalogue {
+public class CategorieDao implements IDAOCategorie {
 
-	private static final String UPDATE_CATALOGUES = "UPDATE catalogues set nom = ? where code=?";
-	private static final String SELECT_ALL_CATALOGUES = "SELECT * FROM catalogues";
-	private static final String DELETE_CATALOGUE_BY_ID = "DELETE FROM catalogues where code = ?";
-	private static final String INSERT_CATALOGUE = "INSERT INTO catalogues(nom) values(?)";
-	private static final String SELECT_CATALOGUE_BY_ID = "SELECT * FROM catalogues where code = ?";
+	private static final String UPDATE_CATALOGUES = "UPDATE categories set nom = ? where code=?";
+	private static final String SELECT_ALL_CATALOGUES = "SELECT * FROM categories";
+	private static final String DELETE_CATALOGUE_BY_ID = "DELETE FROM categories where code = ?";
+	private static final String INSERT_CATALOGUE = "INSERT INTO categories(nom) values(?)";
+	private static final String SELECT_CATALOGUE_BY_ID = "SELECT * FROM categories where code = ?";
 
 	@Override
-	public int add(Catalogue t) throws SQLException {
+	public int add(Categorie t) throws SQLException {
 		Connection cx = SingletonConnection.getConnection();
 		PreparedStatement ps = cx.prepareStatement(INSERT_CATALOGUE);
 		ps.setString(1, t.getNom());
@@ -35,9 +35,9 @@ public class CatalogueDao implements IDAOCatalogue {
 	}
 
 	@Override
-	public List<Catalogue> findAll() throws SQLException {
+	public List<Categorie> findAll() throws SQLException {
 		Connection cx = SingletonConnection.getConnection();
-		List<Catalogue> liste = new ArrayList<>();
+		List<Categorie> liste = new ArrayList<>();
 		PreparedStatement ps = cx.prepareStatement(SELECT_ALL_CATALOGUES);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -46,15 +46,15 @@ public class CatalogueDao implements IDAOCatalogue {
 		return liste;
 	}
 
-	private Catalogue buildCatalogue(ResultSet rs) throws SQLException {
-		Catalogue catalogue = new Catalogue();
+	private Categorie buildCatalogue(ResultSet rs) throws SQLException {
+		Categorie catalogue = new Categorie();
 		catalogue.setCode(rs.getInt("code"));
 		catalogue.setNom(rs.getString("nom"));
 		return catalogue;
 	}
 
 	@Override
-	public Catalogue update(Catalogue t) throws SQLException {
+	public Categorie update(Categorie t) throws SQLException {
 		Connection cx = SingletonConnection.getConnection();
 		PreparedStatement ps = cx.prepareStatement(UPDATE_CATALOGUES);
 		ps.setString(1, t.getNom());
@@ -64,7 +64,7 @@ public class CatalogueDao implements IDAOCatalogue {
 	}
 
 	@Override
-	public Catalogue findById(Integer id) throws SQLException {
+	public Categorie findById(Integer id) throws SQLException {
 		Connection cx = SingletonConnection.getConnection();
 		PreparedStatement ps = cx.prepareStatement(SELECT_CATALOGUE_BY_ID);
 		ps.setInt(1, id);

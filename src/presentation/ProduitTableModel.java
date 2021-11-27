@@ -13,7 +13,7 @@ public class ProduitTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	List<Produit> lesProduits = new ArrayList<>();
-	String titre[] = { "Reference", "Nom", "Prix", "Quantité", "Catalogue" };
+	String titre[] = { "Reference", "Nom", "Prix", "Quantité", "Catégorie" };
 
 	@Override
 	public int getRowCount() {

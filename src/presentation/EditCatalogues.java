@@ -23,16 +23,19 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import constants.Constants;
-import dao.CatalogueDao;
-import metier.Catalogue;
+import dao.IDAOCatalogue;
+import dao.IDAOCatalogueImpl;
+import metier.Categorie;
 
 public class EditCatalogues extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField nomTxt;
-	private CatalogueDao dao = new CatalogueDao();
 	private JTable cataloguesJTable;
-	private Catalogue selectedCatalogue = null;
+	private Categorie selectedCatalogue = null;
+	
+	private IDAOCatalogue dao = new IDAOCatalogueImpl();
+
 
 	/**
 	 * Launch the application.
@@ -83,9 +86,9 @@ public class EditCatalogues extends JFrame {
 		scrollPane.setBounds(32, 154, 698, 311);
 		contentPane.add(scrollPane);
 
-		List<Catalogue> lesCatalogues = new ArrayList<>();
+		List<Categorie> lesCatalogues = new ArrayList<>();
 		try {
-			lesCatalogues = dao.findAll();
+			lesCatalogues = dao.findAllCategories();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -96,7 +99,7 @@ public class EditCatalogues extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_DELETE && selectedCatalogue != null) {
 					try {
-						dao.delete(selectedCatalogue.getCode());
+						dao.deleteCategorieById(selectedCatalogue.getCode());
 						JDialog dialog = new InfoDialog(Constants.CATALOGUE_SUPPRIME,
 								String.format(Constants.CATALOGUE_SUPPRIME_INFO, selectedCatalogue.getNom()));
 						dialog.setVisible(true);
@@ -126,7 +129,7 @@ public class EditCatalogues extends JFrame {
 	private void updateTable() {
 		CatalogueTableModel catalogueTableModel = new CatalogueTableModel();
 		try {
-			catalogueTableModel.chargerTable(dao.findAll());
+			catalogueTableModel.chargerTable(dao.findAllCategories());
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -138,7 +141,7 @@ public class EditCatalogues extends JFrame {
 		if (this.selectedCatalogue != null) {
 			selectedCatalogue.setNom(nomTxt.getText());
 			Integer code = selectedCatalogue.getCode();
-			dao.update(selectedCatalogue);
+			dao.updateCategorie(selectedCatalogue);
 			selectedCatalogue = null;
 			JDialog dialog = new InfoDialog(Constants.CATALOGUE_MODIFIE,
 					String.format(Constants.CATALOGUE_MODIFIE_INF, code));
@@ -147,8 +150,8 @@ public class EditCatalogues extends JFrame {
 			updateTable();
 			return;
 		}
-		Catalogue catalogue = new Catalogue(null, nomTxt.getText(), null);
-		dao.add(catalogue);
+		Categorie catalogue = new Categorie(null, nomTxt.getText(), null);
+		dao.ajouterCategorie(catalogue);
 		JDialog dialog = new InfoDialog(Constants.CATALOGUE_AJOUTE, Constants.CATALOGUE_AJOUTE_INF);
 		dialog.setVisible(true);
 		nomTxt.setText("");
@@ -161,7 +164,7 @@ public class EditCatalogues extends JFrame {
 			return;
 		Integer code = Integer.valueOf(String.valueOf(cataloguesJTable.getValueAt(selectedRow[0], 0)));
 		String nom = String.valueOf(cataloguesJTable.getValueAt(selectedRow[0], 1));
-		this.selectedCatalogue = new Catalogue(code, nom, null);
+		this.selectedCatalogue = new Categorie(code, nom, null);
 		nomTxt.setText(nom);
 	}
 

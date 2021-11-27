@@ -16,8 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import constants.Constants;
-import dao.CatalogueDao;
-import dao.IDAOCatalogue;
+import dao.CategorieDao;
+import dao.IDAOCategorie;
 import dao.IDAOProduit;
 import dao.ProduitDao;
 import metier.Produit;
@@ -31,7 +31,7 @@ public class AddProduit extends JFrame {
 	private JTextField qteTxt;
 
 	private IDAOProduit produitDao = new ProduitDao();
-	private IDAOCatalogue catalogueDao = new CatalogueDao();
+	private IDAOCategorie catalogueDao = new CategorieDao();
 
 	/**
 	 * Create the frame.

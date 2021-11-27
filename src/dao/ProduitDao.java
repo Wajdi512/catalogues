@@ -20,7 +20,7 @@ public class ProduitDao implements IDAOProduit {
 	private static final String UPDATE_PRODUIT_QTE = "UPDATE produit set quantite = ? where reference=?";
 
 
-	private IDAOCatalogue catalogueDao  = new CatalogueDao();
+	private IDAOCategorie catalogueDao  = new CategorieDao();
 	@Override
 	public int add(Produit t) throws SQLException {
 		Connection cx = SingletonConnection.getConnection();

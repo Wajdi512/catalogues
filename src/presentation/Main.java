@@ -18,8 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import dao.CatalogueDao;
+import dao.CategorieDao;
 import dao.IDAOCatalogue;
+import dao.IDAOCatalogueImpl;
+import dao.IDAOCategorie;
 import dao.IDAOProduit;
 import dao.ProduitDao;
 
@@ -29,8 +31,7 @@ public class Main {
 	private JFrame frame;
 	private JTable table;
 	ProduitTableModel produitTableModel = new ProduitTableModel();
-	private IDAOProduit produitDao = new ProduitDao();
-	private IDAOCatalogue catalogueDao = new CatalogueDao();
+	private IDAOCatalogue catalogueDao = new IDAOCatalogueImpl();
 
 	/**
 	 * Launch the application.
@@ -83,7 +84,7 @@ public class Main {
 				if(comboBox.getSelectedItem() != null) {
 					catalogueId = Integer.valueOf(((ComboItem) comboBox.getSelectedItem()).getKey());
 				}
-				loadProduits(catalogueId);
+				loadProduitsByCategorieId(catalogueId);
 			}
 
 		});
@@ -108,7 +109,7 @@ public class Main {
 					}
 				});
 				Integer catalogueId = Integer.valueOf(((ComboItem) comboBox.getSelectedItem()).getKey());
-				loadProduits(catalogueId);
+				loadProduitsByCategorieId(catalogueId);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -120,12 +121,12 @@ public class Main {
 				addPrduit.addWindowListener(new WindowAdapter() {
 					public void windowClosing(WindowEvent we) {
 						Integer catalogueId = Integer.valueOf(((ComboItem) comboBox.getSelectedItem()).getKey());
-						loadProduits(catalogueId);
+						loadProduitsByCategorieId(catalogueId);
 					}
 				});
 
 				try {
-					produitTableModel.chargerTable(produitDao.findAll());
+					produitTableModel.chargerTable(catalogueDao.findAllProduits());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -138,7 +139,7 @@ public class Main {
 		scrollPane.setBounds(10, 224, 582, 237);
 		panel.add(scrollPane);
 		try {
-			produitTableModel.chargerTable(produitDao.findAll());
+			produitTableModel.chargerTable(catalogueDao.findAllProduits());
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -152,7 +153,7 @@ public class Main {
 		catalogueSelect.removeAllItems();
 		catalogueSelect.addItem(new ComboItem("0", "ALL"));
 		try {
-			catalogueDao.findAll().forEach(catalogue -> catalogueSelect
+			catalogueDao.findAllCategories().forEach(catalogue -> catalogueSelect
 					.addItem(new ComboItem(String.valueOf(catalogue.getCode()), catalogue.getNom())));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -160,12 +161,12 @@ public class Main {
 		}
 	}
 
-	private void loadProduits(Integer catalogueId) {
+	private void loadProduitsByCategorieId(Integer catalogueId) {
 		try {
 			if (catalogueId != ALL_CATALOGUE) {
-				produitTableModel.chargerTable(produitDao.findProduitsByCategorie(catalogueId));
+				produitTableModel.chargerTable(catalogueDao.findProduitsByCategorie(catalogueId));
 			} else {
-				produitTableModel.chargerTable(produitDao.findAll());
+				produitTableModel.chargerTable(catalogueDao.findAllProduits());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -2,7 +2,7 @@ package metier;
 
 import java.util.List;
 
-public class Catalogue {
+public class Categorie {
 
 	private Integer code;
 
@@ -10,11 +10,11 @@ public class Catalogue {
 
 	private List<Produit> produits;
 
-	public Catalogue() {
+	public Categorie() {
 		super();
 	}
 
-	public Catalogue(Integer code, String nom, List<Produit> produits) {
+	public Categorie(Integer code, String nom, List<Produit> produits) {
 		super();
 		this.code = code;
 		this.nom = nom;
@@ -61,7 +61,7 @@ public class Catalogue {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Catalogue other = (Catalogue) obj;
+		Categorie other = (Categorie) obj;
 		if (code == null) {
 			if (other.code != null)
 				return false;

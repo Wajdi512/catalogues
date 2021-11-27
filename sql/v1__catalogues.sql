@@ -2,8 +2,8 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- H√¥te : 127.0.0.1:3306
--- G√©n√©r√© le : sam. 27 nov. 2021 √† 14:54
+-- HÙte : 127.0.0.1:3306
+-- GÈnÈrÈ le : sam. 27 nov. 2021 ‡ 21:06
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -18,30 +18,30 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de donn√©es : `catalogues`
+-- Base de donnÈes : `catalogues`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `catalogues`
+-- Structure de la table `categories`
 --
 
-DROP TABLE IF EXISTS `catalogues`;
-CREATE TABLE IF NOT EXISTS `catalogues` (
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
   `code` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`code`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
--- D√©chargement des donn√©es de la table `catalogues`
+-- DÈchargement des donnÈes de la table `categories`
 --
 
-INSERT INTO `catalogues` (`code`, `nom`) VALUES
+INSERT INTO `categories` (`code`, `nom`) VALUES
+(1, 'Informatique'),
 (2, 'Electromenager'),
-(3, 'Telephonie'),
-(1, 'Informatique');
+(3, 'Telephonie');
 
 -- --------------------------------------------------------
 
@@ -59,14 +59,6 @@ CREATE TABLE IF NOT EXISTS `produits` (
   PRIMARY KEY (`reference`),
   KEY `fk_foreign_key_categorie_id` (`catalogue_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
-
---
--- D√©chargement des donn√©es de la table `produits`
---
-
-INSERT INTO `produits` (`reference`, `nom`, `prix`, `quantite`, `catalogue_id`) VALUES
-(2, 'HP pc GAMEer', 5000, 2, 1),
-(1, 'Dell laptop', 2000, 10, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

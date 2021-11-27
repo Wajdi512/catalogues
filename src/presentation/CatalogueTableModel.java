@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import metier.Catalogue;
+import metier.Categorie;
 
 public class CatalogueTableModel extends AbstractTableModel {
 
@@ -13,7 +13,7 @@ public class CatalogueTableModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	List<Catalogue> lesCatalogues = new ArrayList<>();
+	List<Categorie> lesCatalogues = new ArrayList<>();
 	String titre[] = { "Code", "Nom" };
 
 	@Override
@@ -41,7 +41,7 @@ public class CatalogueTableModel extends AbstractTableModel {
 		return titre[column];
 	}
 
-	public void chargerTable(List<Catalogue> catalogues) {
+	public void chargerTable(List<Categorie> catalogues) {
 		this.lesCatalogues = catalogues;
 		fireTableDataChanged();
 	}
